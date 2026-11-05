@@ -1,0 +1,458 @@
+
+/* =================================
+   BASE
+================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f3f6;
+    color: #202b3c;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.application {
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* =================================
+   ENTETE
+================================= */
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #203d58;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+header h1 {
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #8290a0;
+    font-size: 14px;
+}
+
+.sur-titre {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #8da1b5;
+}
+
+
+/* =================================
+   CHRONOMETRE
+================================= */
+
+.chronometre {
+    background: #203d58;
+    color: white;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 22px;
+    box-shadow: 0 8px 25px #203d581c;
+}
+
+#temps {
+    font-size: 54px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin: 12px 0 20px;
+    font-variant-numeric: tabular-nums;
+}
+
+.chrono-commandes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.chrono-commandes button {
+    border: none;
+    border-radius: 9px;
+    padding: 11px 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-demarrer {
+    background: #45b879;
+    color: white;
+}
+
+.btn-secondaire {
+    background: #ffffff20;
+    color: white;
+}
+
+.btn-nouveau-match {
+    background: #e9a23b;
+    color: #263344;
+}
+
+
+/* =================================
+   CONFIGURATION DU BAREME
+================================= */
+
+.configuration {
+    background: white;
+    padding: 22px 25px;
+    border-radius: 18px;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 20px #203d580c;
+}
+
+.configuration-entete {
+    margin-bottom: 17px;
+}
+
+.configuration h2 {
+    font-size: 19px;
+    margin-top: 7px;
+}
+
+.modes {
+    display: flex;
+    gap: 10px;
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 13px;
+    border: 1px solid #dce1e8;
+    border-radius: 10px;
+    background: #f7f8fa;
+    color: #536579;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.mode-btn.active {
+    background: #203d58;
+    color: white;
+    border-color: #203d58;
+}
+
+.personnalisation {
+    display: none;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #e9edf1;
+}
+
+.personnalisation.active {
+    display: block;
+}
+
+.personnalisation p {
+    font-size: 14px;
+    color: #536579;
+    margin-bottom: 12px;
+}
+
+.champs-points {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.champs-points input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #dce1e8;
+    border-radius: 9px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.btn-valider {
+    margin-top: 14px;
+    padding: 12px 20px;
+    background: #45b879;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#messageBareme {
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+
+/* =================================
+   EQUIPES
+================================= */
+
+.equipes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.equipe {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    min-height: 320px;
+    box-shadow: 0 5px 20px #203d580c;
+}
+
+.entete-equipe {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.equipe h2 {
+    font-size: 22px;
+    margin-top: 7px;
+}
+
+.score {
+    text-align: center;
+    font-size: 80px;
+    font-weight: bold;
+    margin: 25px 0;
+    color: #203d58;
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =================================
+   MAILLOTS
+================================= */
+
+.choix-maillot {
+    position: relative;
+}
+
+.maillot {
+    width: 85px;
+    height: 85px;
+    background: #f1f3f6;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.maillot:hover {
+    transform: scale(1.06);
+}
+
+.silhouette-maillot {
+    width: 55px;
+    height: 55px;
+    background: #E53935;
+    clip-path: polygon(
+        25% 0, 0 20%, 15% 45%, 25% 38%,
+        25% 100%, 75% 100%, 75% 38%,
+        85% 45%, 100% 20%, 75% 0,
+        65% 12%, 35% 12%
+    );
+}
+
+.petit-plus {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background: #203d58;
+    color: white;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    font-size: 16px;
+    display: grid;
+    place-items: center;
+}
+
+
+/* =================================
+   PALETTE
+================================= */
+
+.palette {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    right: 0;
+    top: 95px;
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px #0002;
+    grid-template-columns: repeat(4, 30px);
+    gap: 9px;
+}
+
+.palette.active {
+    display: grid;
+}
+
+.palette button {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #e2e6eb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+/* =================================
+   BOUTONS DE SCORE
+================================= */
+
+.boutons-score {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.point {
+    padding: 15px 5px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.15s, opacity 0.15s;
+}
+
+.point:hover {
+    transform: translateY(-3px);
+    opacity: 0.85;
+}
+
+.point-1 {
+    background: #dff5e8;
+    color: #20834b;
+}
+
+.point-10 {
+    background: #e1edff;
+    color: #2869c5;
+}
+
+.point-100 {
+    background: #fff0dc;
+    color: #d97706;
+}
+
+.point-personnalise-1 {
+    background: #dff5e8;
+    color: #20834b;
+}
+
+.point-personnalise-2 {
+    background: #e1edff;
+    color: #2869c5;
+}
+
+.point-personnalise-3 {
+    background: #fff0dc;
+    color: #d97706;
+}
+
+
+/* =================================
+   ANNULATION
+================================= */
+
+.annuler-equipe {
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px;
+    border: 1px solid #dce1e8;
+    border-radius: 9px;
+    background: #f7f8fa;
+    color: #536579;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.annuler-equipe:hover {
+    background: #e8edf3;
+}
+
+
+/* =================================
+   SIGNATURE
+================================= */
+
+.signature {
+    text-align: center;
+    color: #a2acb8;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-top: 35px;
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 650px) {
+
+    body {
+        padding: 20px 12px;
+    }
+
+    .equipes {
+        grid-template-columns: 1fr;
+    }
+
+    .equipe {
+        min-height: 300px;
+    }
+
+    #temps {
+        font-size: 42px;
+    }
+
+    .champs-points {
+        grid-template-columns: 1fr;
+    }
+
+    .chrono-commandes button {
+        padding: 10px 12px;
+    }
+
+}
