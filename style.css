@@ -1,8 +1,4 @@
 
-/* =================================
-   BASE
-================================= */
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,7 +10,7 @@ body {
     background: #f1f3f6;
     color: #202b3c;
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 8px 20px;
 }
 
 .application {
@@ -22,212 +18,181 @@ body {
     margin: 0 auto;
 }
 
-
-/* =================================
-   ENTETE
-================================= */
-
 header {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
+    gap: 10px;
+    margin-bottom: 8px;
 }
 
 .logo {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
     background: #203d58;
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 13px;
 }
 
-header h1 {
-    font-size: 26px;
-    margin-bottom: 5px;
-}
-
-header p {
-    color: #8290a0;
-    font-size: 14px;
-}
+header h1 { font-size: 19px; margin-bottom: 2px; }
+header p { color: #8290a0; font-size: 11px; }
 
 .sur-titre {
-    font-size: 11px;
+    font-size: 9px;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     color: #8da1b5;
 }
-
-
-/* =================================
-   CHRONOMETRE
-================================= */
 
 .chronometre {
     background: #203d58;
     color: white;
-    border-radius: 20px;
-    padding: 25px;
+    border-radius: 14px;
+    padding: 10px 18px;
     text-align: center;
-    margin-bottom: 22px;
-    box-shadow: 0 8px 25px #203d581c;
+    margin-bottom: 9px;
+    box-shadow: 0 4px 15px #203d581c;
 }
 
 #temps {
-    font-size: 54px;
+    font-size: 36px;
     font-weight: bold;
     letter-spacing: 3px;
-    margin: 12px 0 20px;
+    margin: 3px 0 7px;
     font-variant-numeric: tabular-nums;
 }
 
 .chrono-commandes {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    gap: 7px;
 }
 
-.chrono-commandes button {
+.chrono-commandes button,
+.btn-valider {
     border: none;
-    border-radius: 9px;
-    padding: 11px 18px;
+    border-radius: 8px;
+    padding: 8px 14px;
     cursor: pointer;
     font-weight: bold;
+    font-size: 12px;
 }
 
-.btn-demarrer {
-    background: #45b879;
-    color: white;
-}
+.btn-demarrer { background: #45b879; color: white; }
+.btn-secondaire { background: #ffffff20; color: white; }
 
-.btn-secondaire {
-    background: #ffffff20;
-    color: white;
-}
-
-.btn-nouveau-match {
-    background: #e9a23b;
-    color: #263344;
-}
-
-
-/* =================================
-   CONFIGURATION DU BAREME
-================================= */
-
-.configuration {
+.configuration,
+.historique {
     background: white;
-    padding: 22px 25px;
-    border-radius: 18px;
-    margin-bottom: 22px;
-    box-shadow: 0 5px 20px #203d580c;
+    padding: 10px 16px;
+    border-radius: 12px;
+    margin-bottom: 9px;
+    box-shadow: 0 3px 12px #203d580c;
 }
 
-.configuration-entete {
-    margin-bottom: 17px;
-}
-
-.configuration h2 {
-    font-size: 19px;
-    margin-top: 7px;
+.configuration h2,
+.historique h2 {
+    font-size: 15px;
+    margin: 3px 0 7px;
 }
 
 .modes {
     display: flex;
-    gap: 10px;
+    gap: 7px;
 }
 
-.mode-btn {
+.mode-btn,
+.type-identite {
     flex: 1;
-    padding: 13px;
+    padding: 7px;
     border: 1px solid #dce1e8;
-    border-radius: 10px;
+    border-radius: 7px;
     background: #f7f8fa;
     color: #536579;
     font-weight: bold;
+    font-size: 12px;
     cursor: pointer;
 }
 
-.mode-btn.active {
+.mode-btn.active,
+.type-identite.active {
     background: #203d58;
     color: white;
     border-color: #203d58;
 }
 
-.personnalisation {
-    display: none;
-    margin-top: 20px;
-    padding-top: 18px;
-    border-top: 1px solid #e9edf1;
-}
-
-.personnalisation.active {
-    display: block;
-}
-
-.personnalisation p {
-    font-size: 14px;
-    color: #536579;
-    margin-bottom: 12px;
-}
+.personnalisation { display: none; margin-top: 9px; }
+.personnalisation.active { display: block; }
+.personnalisation p { font-size: 12px; color: #536579; margin-bottom: 7px; }
 
 .champs-points {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 7px;
 }
 
-.champs-points input {
+.champs-points input,
+.reglage-penalite input,
+.nom-personnalise {
     width: 100%;
-    padding: 13px;
+    padding: 8px;
     border: 1px solid #dce1e8;
-    border-radius: 9px;
-    font-size: 16px;
+    border-radius: 7px;
+    font-size: 13px;
     text-align: center;
 }
 
+.option-penalite {
+    margin-top: 10px;
+    padding: 9px;
+    background: #f7f8fa;
+    border-radius: 8px;
+}
+
+.case-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.case-option input { width: 16px; height: 16px; }
+
+.reglage-penalite {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-top: 9px;
+    font-size: 12px;
+}
+
+.reglage-penalite.active { display: flex; }
+.reglage-penalite input { max-width: 90px; }
+
 .btn-valider {
-    margin-top: 14px;
-    padding: 12px 20px;
+    margin-top: 9px;
     background: #45b879;
     color: white;
-    border: none;
-    border-radius: 9px;
-    font-weight: bold;
-    cursor: pointer;
 }
 
-#messageBareme {
-    margin-top: 10px;
-    font-size: 13px;
-}
-
-
-/* =================================
-   EQUIPES
-================================= */
+#messageBareme { margin-top: 6px; font-size: 11px; }
 
 .equipes {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 22px;
+    gap: 12px;
 }
 
 .equipe {
-    position: relative;
     background: white;
-    border-radius: 20px;
-    padding: 30px;
-    min-height: 320px;
-    box-shadow: 0 5px 20px #203d580c;
+    border-radius: 14px;
+    padding: 13px 16px;
+    box-shadow: 0 3px 12px #203d580c;
+    min-width: 0;
 }
 
 .entete-equipe {
@@ -236,56 +201,27 @@ header p {
     justify-content: space-between;
 }
 
-.equipe h2 {
-    font-size: 22px;
-    margin-top: 7px;
-}
+.equipe h2 { font-size: 18px; margin-top: 3px; }
 
-.score {
-    text-align: center;
-    font-size: 80px;
-    font-weight: bold;
-    margin: 25px 0;
-    color: #203d58;
-    font-variant-numeric: tabular-nums;
-}
-
-
-/* =================================
-   MAILLOTS
-================================= */
-
-.choix-maillot {
-    position: relative;
-}
+.identite-equipe { position: relative; }
 
 .maillot {
-    width: 85px;
-    height: 85px;
+    position: relative;
+    width: 55px;
+    height: 55px;
     background: #f1f3f6;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.2s;
-}
-
-.maillot:hover {
-    transform: scale(1.06);
+    display: grid;
+    place-items: center;
 }
 
 .silhouette-maillot {
-    width: 55px;
-    height: 55px;
+    width: 36px;
+    height: 36px;
     background: #E53935;
-    clip-path: polygon(
-        25% 0, 0 20%, 15% 45%, 25% 38%,
-        25% 100%, 75% 100%, 75% 38%,
-        85% 45%, 100% 20%, 75% 0,
-        65% 12%, 35% 12%
-    );
+    clip-path: polygon(25% 0,0 20%,15% 45%,25% 38%,25% 100%,75% 100%,75% 38%,85% 45%,100% 20%,75% 0,65% 12%,35% 12%);
 }
 
 .petit-plus {
@@ -295,345 +231,260 @@ header p {
     background: #203d58;
     color: white;
     border-radius: 50%;
-    width: 23px;
-    height: 23px;
-    font-size: 16px;
+    width: 19px;
+    height: 19px;
+    font-size: 13px;
     display: grid;
     place-items: center;
 }
-
-
-/* =================================
-   PALETTE
-================================= */
 
 .palette {
     display: none;
     position: absolute;
     z-index: 5;
     right: 0;
-    top: 95px;
+    top: 63px;
     background: white;
-    padding: 12px;
-    border-radius: 12px;
-    box-shadow: 0 5px 25px #0002;
-    grid-template-columns: repeat(4, 30px);
-    gap: 9px;
+    padding: 9px;
+    border-radius: 9px;
+    box-shadow: 0 5px 20px #0002;
+    grid-template-columns: repeat(4, 25px);
+    gap: 7px;
 }
 
-.palette.active {
-    display: grid;
-}
-
+.palette.active { display: grid; }
 .palette button {
-    width: 28px;
-    height: 28px;
+    width: 23px;
+    height: 23px;
     border: 2px solid #e2e6eb;
     border-radius: 50%;
     cursor: pointer;
 }
 
+.choix-identite {
+    display: flex;
+    gap: 5px;
+    margin-top: 8px;
+}
 
-/* =================================
-   BOUTONS DE SCORE
-================================= */
+.type-identite { font-size: 10px; padding: 5px; }
+
+.nom-personnalise {
+    display: none;
+    margin-top: 7px;
+    text-align: left;
+}
+
+.nom-personnalise.active { display: block; }
+
+.score {
+    text-align: center;
+    font-size: 58px;
+    font-weight: bold;
+    margin: 5px 0 10px;
+    color: #203d58;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
 
 .boutons-score {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    gap: 8px;
 }
 
 .point {
-    padding: 15px 5px;
+    width: 100%;
+    padding: 11px 4px;
     border: none;
-    border-radius: 10px;
-    font-size: 18px;
+    border-radius: 8px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.15s, opacity 0.15s;
 }
 
-.point:hover {
-    transform: translateY(-3px);
-    opacity: 0.85;
+.point-personnalise-1,
+.point-1 { background: #dff5e8; color: #20834b; }
+.point-personnalise-2,
+.point-10 { background: #e1edff; color: #2869c5; }
+.point-personnalise-3,
+.point-100 { background: #fff0dc; color: #d97706; }
+
+.zone-penalite {
+    display: none;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: stretch;
+    margin-top: 9px;
 }
 
-.point-1 {
-    background: #dff5e8;
-    color: #20834b;
+.zone-penalite.active { display: grid; }
+
+.btn-penalite {
+    background: #FCE8E8;
+    color: #C62828;
+    border: 1px solid #F2BABA;
+    border-radius: 8px;
+    padding: 10px 6px;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
 }
 
-.point-10 {
-    background: #e1edff;
-    color: #2869c5;
+.compteur-penalites {
+    min-width: 75px;
+    background: #fff5f5;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 8px;
+    color: #C62828;
 }
 
-.point-100 {
-    background: #fff0dc;
-    color: #d97706;
-}
-
-.point-personnalise-1 {
-    background: #dff5e8;
-    color: #20834b;
-}
-
-.point-personnalise-2 {
-    background: #e1edff;
-    color: #2869c5;
-}
-
-.point-personnalise-3 {
-    background: #fff0dc;
-    color: #d97706;
-}
-
-
-/* =================================
-   ANNULATION
-================================= */
+.compteur-penalites strong { font-size: 19px; }
+.compteur-penalites span { font-size: 9px; }
 
 .annuler-equipe {
     width: 100%;
-    margin-top: 16px;
-    padding: 12px;
+    margin-top: 8px;
+    padding: 8px;
     border: 1px solid #dce1e8;
-    border-radius: 9px;
+    border-radius: 7px;
     background: #f7f8fa;
     color: #536579;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.fin-match {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin: 11px 0;
+}
+
+.btn-fin-match,
+.btn-nouveau-match {
+    width: 100%;
+    min-height: 40px;
+    border: none;
+    border-radius: 8px;
     font-size: 13px;
     font-weight: bold;
     cursor: pointer;
 }
 
-.annuler-equipe:hover {
-    background: #e8edf3;
+.btn-fin-match { background: #e9a23b; color: #263344; }
+.btn-nouveau-match { background: #203d58; color: white; }
+.btn-nouveau-match:disabled {
+    background: #dce2e9;
+    color: #8995a3;
+    cursor: not-allowed;
 }
 
+#messageMatch { text-align: center; font-size: 11px; color: #687789; }
 
-/* =================================
-   SIGNATURE
-================================= */
+.historique { margin-top: 9px; }
+.historique-entete { margin-bottom: 8px; }
+.historique-vide {
+    padding: 11px;
+    text-align: center;
+    color: #8290a0;
+    font-size: 12px;
+    background: #f7f8fa;
+    border-radius: 8px;
+}
+
+.match-historique {
+    background: #f4f6f8;
+    border-radius: 9px;
+    padding: 10px;
+    margin-bottom: 8px;
+}
+
+.match-historique-entete,
+.match-infos {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 10px;
+}
+
+.match-historique-entete { margin-bottom: 8px; font-weight: bold; }
+.match-date { color: #8290a0; font-weight: normal; }
+
+.match-resultat {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #dce1e8;
+}
+
+.match-equipe { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.match-equipe:last-child { align-items: flex-end; text-align: right; }
+
+.match-identite { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; }
+.match-equipe:last-child .match-identite { flex-direction: row-reverse; }
+
+.match-couleur {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #cbd2da;
+    border-radius: 3px;
+    flex: 0 0 auto;
+}
+
+.match-score { font-size: 18px; font-weight: bold; color: #203d58; white-space: nowrap; }
+.match-infos { padding-top: 7px; color: #687789; }
+
+.btn-supprimer-match {
+    margin-top: 8px;
+    padding: 6px 9px;
+    border: 1px solid #f0b8b8;
+    border-radius: 7px;
+    background: white;
+    color: #d64545;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-effacer-historique {
+    width: 100%;
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #e45b5b;
+    border-radius: 7px;
+    background: white;
+    color: #d64545;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: pointer;
+}
 
 .signature {
     text-align: center;
     color: #a2acb8;
-    font-size: 10px;
-    letter-spacing: 2px;
-    margin-top: 35px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    margin: 12px 0;
 }
-
-
-/* =================================
-   RESPONSIVE - TABLETTES ET MOBILES
-================================= */
 
 @media (max-width: 650px) {
-
-    body {
-        padding: 14px 10px;
-    }
-
-    .application {
-        width: 100%;
-    }
-
-    /* En-tête */
-
-    header {
-        gap: 10px;
-        margin-bottom: 16px;
-    }
-
-    .logo {
-        width: 42px;
-        height: 42px;
-        border-radius: 11px;
-        font-size: 15px;
-    }
-
-    header h1 {
-        font-size: 21px;
-    }
-
-    header p {
-        font-size: 12px;
-    }
-
-    /* Chronomètre */
-
-    .chronometre {
-        padding: 18px 12px;
-        border-radius: 18px;
-        margin-bottom: 14px;
-    }
-
-    #temps {
-        font-size: 42px;
-        letter-spacing: 2px;
-        margin: 8px 0 14px;
-    }
-
-    .chrono-commandes {
-        gap: 8px;
-    }
-
-    .chrono-commandes button {
-        padding: 12px 10px;
-        font-size: 13px;
-        border-radius: 9px;
-    }
-
-    /* Configuration */
-
-    .configuration {
-        padding: 17px 16px;
-        border-radius: 17px;
-        margin-bottom: 14px;
-    }
-
-    .configuration-entete {
-        margin-bottom: 13px;
-    }
-
-    .configuration h2 {
-        font-size: 18px;
-    }
-
-    .modes {
-        gap: 8px;
-    }
-
-    .mode-btn {
-        padding: 13px 6px;
-        font-size: 13px;
-    }
-
-    .champs-points {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 7px;
-    }
-
-    .champs-points input {
-        padding: 11px 5px;
-        font-size: 14px;
-    }
-
-    /* Cartes des équipes */
-
-    .equipes {
-        grid-template-columns: 1fr;
-        gap: 14px;
-    }
-
-    .equipe {
-        min-height: unset;
-        padding: 19px 17px;
-        border-radius: 18px;
-    }
-
-    .equipe h2 {
-        font-size: 20px;
-        margin-top: 5px;
-    }
-
-    .entete-equipe {
-        gap: 10px;
-    }
-
-    /* Maillots */
-
-    .maillot {
-        width: 65px;
-        height: 65px;
-        border-radius: 12px;
-    }
-
-    .silhouette-maillot {
-        width: 43px;
-        height: 43px;
-    }
-
-    .petit-plus {
-        width: 21px;
-        height: 21px;
-        font-size: 14px;
-    }
-
-    .palette {
-        top: 73px;
-        padding: 10px;
-        gap: 8px;
-    }
-
-    /* Scores */
-
-    .score {
-        font-size: 64px;
-        margin: 9px 0 15px;
-    }
-
-    /* Boutons de points */
-
-    .boutons-score {
-        gap: 8px;
-    }
-
-    .point {
-        min-height: 54px;
-        padding: 12px 3px;
-        font-size: 17px;
-        border-radius: 10px;
-    }
-
-    /* Annulation */
-
-    .annuler-equipe {
-        margin-top: 11px;
-        min-height: 46px;
-        padding: 10px 6px;
-        font-size: 12px;
-    }
-
-    /* Signature */
-
-    .signature {
-        margin-top: 22px;
-        margin-bottom: 8px;
-    }
+    body { padding: 10px 8px; }
+    .equipes { grid-template-columns: 1fr; gap: 10px; }
+    .equipe { padding: 15px; }
+    #temps { font-size: 38px; }
+    .historique { padding: 12px; }
 }
 
-
-/* =================================
-   PETITS ECRANS
-================================= */
-
 @media (max-width: 380px) {
-
-    body {
-        padding: 10px 8px;
-    }
-
-    .chronometre {
-        padding: 16px 9px;
-    }
-
-    .chrono-commandes {
-        gap: 6px;
-    }
-
-    .chrono-commandes button {
-        padding: 11px 7px;
-        font-size: 12px;
-    }
-
-    .equipe {
-        padding: 16px 13px;
-    }
-
-    .point {
-        font-size: 15px;
-    }
-
+    .chrono-commandes button { padding: 8px 6px; font-size: 11px; }
+    .match-score { font-size: 16px; }
+    .match-identite { font-size: 10px; }
 }
