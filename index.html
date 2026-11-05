@@ -1,183 +1,801 @@
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compteur EPS</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+/* =====================================
+   1. CHRONOMETRE
+===================================== */
 
-<body>
-<div class="application">
+let secondes = 0;
+let intervalChrono = null;
+let matchTermine = false;
 
-    <header>
-        <div class="logo">EPS</div>
-        <div>
-            <h1>Compteur de points</h1>
-            <p>Tableau de score • Match</p>
-        </div>
-    </header>
+const affichageTemps = document.getElementById("temps");
 
-    <section class="chronometre">
-        <p class="sur-titre">TEMPS DE MATCH</p>
-        <div id="temps">00:00</div>
-        <div class="chrono-commandes">
-            <button id="demarrer" class="btn-demarrer">▶ Démarrer</button>
-            <button id="pause" class="btn-secondaire">Ⅱ Pause</button>
-        </div>
-    </section>
+function afficherTemps() {
+    const minutes = Math.floor(secondes / 60);
+    const reste = secondes % 60;
 
-    <section class="configuration">
-        <p class="sur-titre">PARAMÈTRES DU MATCH</p>
-        <h2>Barème des points</h2>
+    affichageTemps.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(reste).padStart(2, "0");
+}
 
-        <div class="modes">
-            <button id="modeClassique" class="mode-btn active">1 / 10 / 100</button>
-            <button id="modePersonnalise" class="mode-btn">Personnalisé</button>
-        </div>
+function demarrerChrono() {
+    if (intervalChrono !== null || matchTermine) return;
 
-        <div id="personnalisation" class="personnalisation">
-            <p>Valeurs des boutons de score :</p>
+    intervalChrono = setInterval(() => {
+        secondes++;
+        afficherTemps();
+    }, 1000);
+}
 
-            <div class="champs-points">
-                <input type="number" id="pointCustom1" min="1" placeholder="Valeur 1">
-                <input type="number" id="pointCustom2" min="1" placeholder="Valeur 2">
-                <input type="number" id="pointCustom3" min="1" placeholder="Valeur 3">
-            </div>
+function pauseChrono() {
+    clearInterval(intervalChrono);
+    intervalChrono = null;
+}
 
-            <div class="option-penalite">
-                <label class="case-option">
-                    <input type="checkbox" id="activerPenalites">
-                    <span>Activer les pénalités</span>
-                </label>
+document.getElementById("demarrer").addEventListener("click", demarrerChrono);
+document.getElementById("pause").addEventListener("click", pauseChrono);
 
-                <div id="reglagePenalite" class="reglage-penalite">
-                    <label for="pointsPenalite">Points retirés par pénalité :</label>
-                    <input type="number" id="pointsPenalite" min="0" step="1" value="1">
-                </div>
-            </div>
 
-            <button id="validerBareme" class="btn-valider">Appliquer le barème</button>
-            <p id="messageBareme"></p>
-        </div>
-    </section>
+/* =====================================
+   2. DONNEES DES EQUIPES
+===================================== */
 
-    <main class="equipes">
+const equipes = {
+    1: {
+        score: 0,
+        penalites: 0,
+        actions: [],
+        typeIdentite: "maillot",
+        maillot: "rouge",
+        nom: ""
+    },
+    2: {
+        score: 0,
+        penalites: 0,
+        actions: [],
+        typeIdentite: "maillot",
+        maillot: "bleu",
+        nom: ""
+    }
+};
 
-        <!-- EQUIPE 1 -->
-        <section class="equipe">
-            <div class="entete-equipe">
-                <div>
-                    <p class="sur-titre">ÉQUIPE 01</p>
-                    <h2 id="nomEquipe1">Équipe 1</h2>
-                </div>
+let mode = "classique";
+let baremePersonnalise = [];
+let penalitesActives = false;
+let pointsPenalite = 0;
 
-                <div class="identite-equipe">
-                    <button class="maillot" data-jersey="1" aria-label="Modifier l'identité de l'équipe 1">
-                        <span class="silhouette-maillot" id="maillot1"></span>
-                        <span class="petit-plus">+</span>
-                    </button>
-                    <div class="palette" id="palette1">
-                        <button data-color="#E53935" aria-label="Rouge"></button>
-                        <button data-color="#145A32" aria-label="Vert foncé"></button>
-                        <button data-color="#1976D2" aria-label="Bleu"></button>
-                        <button data-color="#FDD835" aria-label="Jaune"></button>
-                        <button data-color="#F57C00" aria-label="Orange"></button>
-                        <button data-color="#171717" aria-label="Noir"></button>
-                        <button data-color="#FFFFFF" aria-label="Blanc"></button>
-                        <button data-color="#81C784" aria-label="Vert clair"></button>
-                    </div>
-                </div>
-            </div>
 
-            <div class="choix-identite">
-                <button class="type-identite active" data-team="1" data-type="couleur">Maillot</button>
-                <button class="type-identite" data-team="1" data-type="texte">Texte</button>
-            </div>
-            <input class="nom-personnalise" id="texteEquipe1" type="text" placeholder="Prénom ou nom d'équipe">
+/* =====================================
+   3. CONFIGURATION DU BAREME
+===================================== */
 
-            <div class="score" id="score1">0</div>
-            <div class="boutons-score" id="boutonsScore1"></div>
-            <div class="zone-penalite" id="zonePenalite1">
-                <button class="btn-penalite" id="penalite1">−1 Pénalité</button>
-                <div class="compteur-penalites">
-                    <strong id="compteurPenalites1">0</strong>
-                    <span>pénalité(s)</span>
-                </div>
-            </div>
-            <button class="annuler-equipe" id="annuler1">↶ Annuler la dernière action</button>
-        </section>
+const boutonClassique = document.getElementById("modeClassique");
+const boutonPersonnalise = document.getElementById("modePersonnalise");
 
-        <!-- EQUIPE 2 -->
-        <section class="equipe">
-            <div class="entete-equipe">
-                <div>
-                    <p class="sur-titre">ÉQUIPE 02</p>
-                    <h2 id="nomEquipe2">Équipe 2</h2>
-                </div>
+const configurationPersonnalisee =
+    document.getElementById("configurationPersonnalisee");
 
-                <div class="identite-equipe">
-                    <button class="maillot" data-jersey="2" aria-label="Modifier l'identité de l'équipe 2">
-                        <span class="silhouette-maillot" id="maillot2"></span>
-                        <span class="petit-plus">+</span>
-                    </button>
-                    <div class="palette" id="palette2">
-                        <button data-color="#E53935" aria-label="Rouge"></button>
-                        <button data-color="#145A32" aria-label="Vert foncé"></button>
-                        <button data-color="#1976D2" aria-label="Bleu"></button>
-                        <button data-color="#FDD835" aria-label="Jaune"></button>
-                        <button data-color="#F57C00" aria-label="Orange"></button>
-                        <button data-color="#171717" aria-label="Noir"></button>
-                        <button data-color="#FFFFFF" aria-label="Blanc"></button>
-                        <button data-color="#81C784" aria-label="Vert clair"></button>
-                    </div>
-                </div>
-            </div>
+const resumeBareme = document.getElementById("resumeBareme");
+const texteResumeBareme = document.getElementById("texteResumeBareme");
+const reglagePenalite = document.getElementById("reglagePenalite");
 
-            <div class="choix-identite">
-                <button class="type-identite active" data-team="2" data-type="couleur">Maillot</button>
-                <button class="type-identite" data-team="2" data-type="texte">Texte</button>
-            </div>
-            <input class="nom-personnalise" id="texteEquipe2" type="text" placeholder="Prénom ou nom d'équipe">
+function afficher(element, visible) {
+    element.hidden = !visible;
 
-            <div class="score" id="score2">0</div>
-            <div class="boutons-score" id="boutonsScore2"></div>
-            <div class="zone-penalite" id="zonePenalite2">
-                <button class="btn-penalite" id="penalite2">−1 Pénalité</button>
-                <div class="compteur-penalites">
-                    <strong id="compteurPenalites2">0</strong>
-                    <span>pénalité(s)</span>
-                </div>
-            </div>
-            <button class="annuler-equipe" id="annuler2">↶ Annuler la dernière action</button>
-        </section>
-    </main>
+    if (visible) {
+        element.style.removeProperty("display");
+    } else {
+        element.style.setProperty("display", "none", "important");
+    }
+}
 
-    <section class="fin-match">
-        <button id="finMatch" class="btn-fin-match">🏁 FIN DU MATCH</button>
-        <button id="resetMatch" class="btn-nouveau-match" disabled>↻ NOUVEAU MATCH</button>
-        <p id="messageMatch"></p>
-    </section>
 
-    <section class="historique">
-        <div class="historique-entete">
-            <p class="sur-titre">RÉSULTATS</p>
-            <h2>Historique des matchs</h2>
-        </div>
+/* =====================================
+   4. CHOIX DU MODE
+===================================== */
 
-        <div id="historiqueMatchs">
-            <p class="historique-vide">Aucun match enregistré pour le moment.</p>
-        </div>
+boutonClassique.addEventListener("click", () => {
 
-        <button id="effacerHistorique" class="btn-effacer-historique">
-            🗑 Effacer tout l'historique
-        </button>
-    </section>
+    if (matchTermine) return;
 
-    <p class="signature">MYOUTILSEPS • OUTILS POUR L'EPS</p>
-</div>
+    mode = "classique";
+    penalitesActives = false;
 
-<script src="script.js"></script>
-</body>
-</html>
+    document.getElementById("activerPenalites").checked = false;
+
+    afficher(reglagePenalite, false);
+    afficher(configurationPersonnalisee, false);
+    afficher(resumeBareme, false);
+
+    boutonClassique.classList.add("mode-actif");
+    boutonPersonnalise.classList.remove("mode-actif");
+
+    afficher(document.getElementById("zonePenalite1"), false);
+    afficher(document.getElementById("zonePenalite2"), false);
+
+    actualiserBoutonsScore();
+});
+
+
+boutonPersonnalise.addEventListener("click", () => {
+
+    if (matchTermine) return;
+
+    afficher(configurationPersonnalisee, true);
+    afficher(resumeBareme, false);
+
+    boutonPersonnalise.classList.add("mode-actif");
+    boutonClassique.classList.remove("mode-actif");
+
+});
+
+
+/* =====================================
+   5. REGLAGE DES PENALITES
+===================================== */
+
+document.getElementById("activerPenalites")
+    .addEventListener("change", event => {
+
+        afficher(reglagePenalite, event.target.checked);
+
+    });
+
+
+/* =====================================
+   6. VALIDATION DU BAREME
+===================================== */
+
+document.getElementById("validerBareme").addEventListener("click", () => {
+
+    if (matchTermine) return;
+
+    const champs = [
+        document.getElementById("pointCustom1"),
+        document.getElementById("pointCustom2"),
+        document.getElementById("pointCustom3")
+    ];
+
+    // On ignore les champs laissés vides
+    const valeurs = champs
+        .filter(champ => champ.value.trim() !== "")
+        .map(champ => Number(champ.value));
+
+    const message = document.getElementById("messageBareme");
+
+    if (
+        valeurs.length === 0 ||
+        valeurs.some(valeur => !Number.isFinite(valeur) || valeur < 0)
+    ) {
+        message.textContent = "Saisis au moins une valeur valide.";
+        return;
+    }
+
+    // Enregistrement du barème
+    baremePersonnalise = valeurs;
+    mode = "personnalise";
+
+    // Enregistrement des pénalités
+    penalitesActives =
+        document.getElementById("activerPenalites").checked;
+
+    const saisiePenalite =
+        document.getElementById("pointsPenalite").value;
+
+    pointsPenalite = penalitesActives
+        ? Math.max(0, Number(saisiePenalite) || 0)
+        : 0;
+
+    // Création du résumé
+    texteResumeBareme.textContent =
+        "Barème : " +
+        baremePersonnalise.map(valeur => "+" + valeur).join(" / ") +
+        (penalitesActives
+            ? " · Pénalité : -" + pointsPenalite
+            : "");
+
+    message.textContent = "";
+
+    // Fermeture du panneau
+    afficher(configurationPersonnalisee, false);
+
+    // Affichage du résumé
+    afficher(resumeBareme, true);
+
+    boutonPersonnalise.classList.add("mode-actif");
+    boutonClassique.classList.remove("mode-actif");
+
+    // Affichage ou masquage des pénalités
+    afficher(
+        document.getElementById("zonePenalite1"),
+        penalitesActives
+    );
+
+    afficher(
+        document.getElementById("zonePenalite2"),
+        penalitesActives
+    );
+
+    actualiserBoutonsScore();
+
+});
+
+
+/* =====================================
+   7. MODIFIER LE BAREME
+===================================== */
+
+document.getElementById("modifierBareme").addEventListener("click", () => {
+
+    if (matchTermine) return;
+
+    afficher(configurationPersonnalisee, true);
+    afficher(resumeBareme, false);
+
+});
+
+
+/* =====================================
+   8. BOUTONS DE SCORE
+===================================== */
+
+function actualiserBoutonsScore() {
+
+    [1, 2].forEach(numero => {
+
+        const zone = document.getElementById("boutonsScore" + numero);
+
+        zone.innerHTML = "";
+
+        const valeurs = mode === "classique"
+            ? [1, 10, 100]
+            : baremePersonnalise;
+
+        // Adaptation automatique au nombre de valeurs
+        zone.style.gridTemplateColumns =
+            "repeat(" + valeurs.length + ", minmax(0, 1fr))";
+
+        valeurs.forEach(valeur => {
+
+            const bouton = document.createElement("button");
+
+            bouton.className = "point";
+            bouton.textContent = "+" + valeur;
+
+            bouton.addEventListener("click", () => {
+                ajouterPoints(numero, valeur);
+            });
+
+            zone.appendChild(bouton);
+
+        });
+
+    });
+
+}
+
+
+/* =====================================
+   9. GESTION DES SCORES
+===================================== */
+
+function afficherScore(numero) {
+
+    document.getElementById("score" + numero).textContent =
+        equipes[numero].score;
+
+    document.getElementById("compteurPenalites" + numero).textContent =
+        equipes[numero].penalites;
+
+}
+
+
+function ajouterPoints(numero, valeur) {
+
+    if (matchTermine) return;
+
+    const equipe = equipes[numero];
+
+    equipe.actions.push({
+        scoreAvant: equipe.score,
+        penalitesAvant: equipe.penalites
+    });
+
+    equipe.score += valeur;
+
+    afficherScore(numero);
+
+}
+
+
+/* =====================================
+   10. PENALITES
+===================================== */
+
+function ajouterPenalite(numero) {
+
+    if (matchTermine || !penalitesActives) return;
+
+    const equipe = equipes[numero];
+
+    equipe.actions.push({
+        scoreAvant: equipe.score,
+        penalitesAvant: equipe.penalites
+    });
+
+    // Le score peut désormais devenir négatif
+    equipe.score = equipe.score - pointsPenalite;
+
+    // Le compteur augmente même si le malus vaut zéro
+    equipe.penalites++;
+
+    afficherScore(numero);
+
+}
+
+document.getElementById("penalite1")
+    .addEventListener("click", () => ajouterPenalite(1));
+
+document.getElementById("penalite2")
+    .addEventListener("click", () => ajouterPenalite(2));
+
+
+/* =====================================
+   11. ANNULATION DE LA DERNIERE ACTION
+===================================== */
+
+function annulerAction(numero) {
+
+    if (matchTermine) return;
+
+    const equipe = equipes[numero];
+
+    if (equipe.actions.length === 0) return;
+
+    const derniereAction = equipe.actions.pop();
+
+    equipe.score = derniereAction.scoreAvant;
+    equipe.penalites = derniereAction.penalitesAvant;
+
+    afficherScore(numero);
+
+}
+
+document.getElementById("annuler1")
+    .addEventListener("click", () => annulerAction(1));
+
+document.getElementById("annuler2")
+    .addEventListener("click", () => annulerAction(2));
+
+
+/* =====================================
+   12. MAILLOTS ET PALETTES
+===================================== */
+
+const couleursMaillots = {
+    "rouge": "#ed3733",
+    "vert-fonce": "#167447",
+    "bleu": "#2676d4",
+    "jaune": "#f2d329",
+    "orange": "#ed9029",
+    "noir": "#222222",
+    "blanc": "#ffffff",
+    "vert-clair": "#8bc34a"
+};
+
+
+function actualiserMaillot(numero) {
+
+    const bouton = document.getElementById("ouvrirPalette" + numero);
+
+    const couleur = couleursMaillots[equipes[numero].maillot];
+
+    bouton.style.setProperty("--couleur-maillot", couleur);
+
+    document.querySelectorAll(
+        '.couleur[data-team="' + numero + '"]'
+    ).forEach(element => {
+
+        element.classList.toggle(
+            "selectionne",
+            element.dataset.color === equipes[numero].maillot
+        );
+
+    });
+
+}
+
+
+// Ouvrir ou fermer la palette en cliquant sur le maillot
+[1, 2].forEach(numero => {
+
+    const bouton = document.getElementById("ouvrirPalette" + numero);
+    const palette = document.getElementById("palette" + numero);
+
+    bouton.addEventListener("click", () => {
+
+        if (matchTermine || equipes[numero].typeIdentite !== "maillot") {
+            return;
+        }
+
+        const doitOuvrir = palette.hidden;
+
+        // Fermer les deux palettes avant d'en ouvrir une
+        [1, 2].forEach(n => {
+
+            document.getElementById("palette" + n).hidden = true;
+
+            document.getElementById("ouvrirPalette" + n)
+                .setAttribute("aria-expanded", "false");
+
+        });
+
+        palette.hidden = !doitOuvrir;
+
+        bouton.setAttribute(
+            "aria-expanded",
+            String(doitOuvrir)
+        );
+
+    });
+
+});
+
+
+// Choisir une couleur
+document.querySelectorAll(".couleur").forEach(bouton => {
+
+    bouton.addEventListener("click", () => {
+
+        if (matchTermine) return;
+
+        const numero = Number(bouton.dataset.team);
+        const couleur = bouton.dataset.color;
+
+        equipes[numero].maillot = couleur;
+
+        // Changement immédiat du maillot
+        actualiserMaillot(numero);
+
+        // Fermeture de la palette
+        document.getElementById("palette" + numero).hidden = true;
+
+        document.getElementById("ouvrirPalette" + numero)
+            .setAttribute("aria-expanded", "false");
+
+    });
+
+});
+
+
+/* =====================================
+   13. IDENTITE DES EQUIPES
+===================================== */
+
+function actualiserIdentite(numero) {
+
+    const equipe = equipes[numero];
+
+    document.getElementById("nomEquipe" + numero).textContent =
+        equipe.typeIdentite === "texte"
+            ? (equipe.nom.trim() || "Équipe " + numero)
+            : "Équipe " + numero;
+
+    document.getElementById("ouvrirPalette" + numero).hidden =
+        equipe.typeIdentite !== "maillot";
+
+    document.getElementById("texteEquipe" + numero).hidden =
+        equipe.typeIdentite !== "texte";
+
+    if (equipe.typeIdentite !== "maillot") {
+        document.getElementById("palette" + numero).hidden = true;
+    }
+
+    actualiserMaillot(numero);
+
+}
+
+
+// Choix maillot ou texte
+document.querySelectorAll(".type-identite").forEach(bouton => {
+
+    bouton.addEventListener("click", () => {
+
+        if (matchTermine) return;
+
+        const numero = Number(bouton.dataset.team);
+        const type = bouton.dataset.type;
+
+        equipes[numero].typeIdentite = type;
+
+        document.querySelectorAll(
+            '.type-identite[data-team="' + numero + '"]'
+        ).forEach(element => {
+            element.classList.remove("actif");
+        });
+
+        bouton.classList.add("actif");
+
+        actualiserIdentite(numero);
+
+    });
+
+});
+
+
+// Saisie du nom de l'équipe ou du joueur
+[1, 2].forEach(numero => {
+
+    document.getElementById("texteEquipe" + numero)
+        .addEventListener("input", event => {
+
+            equipes[numero].nom = event.target.value;
+
+            actualiserIdentite(numero);
+
+        });
+
+});
+
+
+/* =====================================
+   14. HISTORIQUE
+===================================== */
+
+const CLE_HISTORIQUE = "compteurEPSHistorique";
+
+function chargerHistorique() {
+
+    try {
+
+        const sauvegarde = localStorage.getItem(CLE_HISTORIQUE);
+
+        if (sauvegarde) {
+            return JSON.parse(sauvegarde);
+        }
+
+        // Récupération éventuelle de l'ancien historique
+        const ancien = localStorage.getItem("myoutilsEPS_historique");
+
+        if (ancien) {
+
+            const donnees = JSON.parse(ancien);
+
+            if (Array.isArray(donnees)) {
+                return donnees;
+            }
+
+        }
+
+    } catch (erreur) {
+
+        console.error("Erreur historique :", erreur);
+
+    }
+
+    return [];
+
+}
+
+let historiqueMatchs = chargerHistorique();
+
+
+function sauvegarderHistorique() {
+
+    localStorage.setItem(
+        CLE_HISTORIQUE,
+        JSON.stringify(historiqueMatchs)
+    );
+
+}
+
+
+function nomIdentite(equipe, numero) {
+
+    return equipe.typeIdentite === "texte"
+        ? (equipe.nom.trim() || "Équipe " + numero)
+        : "Maillot " + equipe.maillot;
+
+}
+
+
+/* =====================================
+   15. FIN DU MATCH
+===================================== */
+
+function terminerMatch() {
+
+    if (matchTermine) return;
+
+    pauseChrono();
+    matchTermine = true;
+
+    const equipe1 = equipes[1];
+    const equipe2 = equipes[2];
+
+    let resultat = "Match nul";
+
+    if (equipe1.score > equipe2.score) {
+        resultat = "Victoire équipe 1";
+    }
+
+    if (equipe2.score > equipe1.score) {
+        resultat = "Victoire équipe 2";
+    }
+
+    const match = {
+
+        date: new Date().toLocaleString("fr-FR"),
+        duree: affichageTemps.textContent,
+        resultat: resultat,
+
+        equipe1: {
+            nom: nomIdentite(equipe1, 1),
+            typeIdentite: equipe1.typeIdentite,
+            maillot: equipe1.maillot,
+            score: equipe1.score,
+            penalites: equipe1.penalites
+        },
+
+        equipe2: {
+            nom: nomIdentite(equipe2, 2),
+            typeIdentite: equipe2.typeIdentite,
+            maillot: equipe2.maillot,
+            score: equipe2.score,
+            penalites: equipe2.penalites
+        }
+
+    };
+
+    historiqueMatchs.unshift(match);
+
+    sauvegarderHistorique();
+    afficherHistorique();
+
+    document.getElementById("messageMatch").textContent = resultat;
+
+    document.getElementById("finMatch").disabled = true;
+    document.getElementById("resetMatch").disabled = false;
+
+}
+
+document.getElementById("finMatch")
+    .addEventListener("click", terminerMatch);
+
+
+/* =====================================
+   16. AFFICHAGE DE L'HISTORIQUE
+===================================== */
+
+function afficherHistorique() {
+
+    const zone = document.getElementById("historiqueMatchs");
+
+    zone.innerHTML = "";
+
+    if (historiqueMatchs.length === 0) {
+
+        zone.textContent = "Aucun match enregistré pour le moment.";
+
+        return;
+
+    }
+
+    historiqueMatchs.forEach((match, index) => {
+
+        const bloc = document.createElement("div");
+        bloc.className = "match-historique";
+
+        const ligne = document.createElement("div");
+        ligne.className = "ligne-resultat";
+
+        const resultat = document.createElement("span");
+
+        resultat.textContent =
+            match.equipe1.nom + " " +
+            match.equipe1.score + " - " +
+            match.equipe2.score + " " +
+            match.equipe2.nom;
+
+        ligne.appendChild(resultat);
+        bloc.appendChild(ligne);
+
+        const details = document.createElement("div");
+        details.className = "details-match";
+
+        details.textContent =
+            match.date +
+            " · Durée : " + match.duree +
+            " · Pénalités : " +
+            (match.equipe1.penalites || 0) + " / " +
+            (match.equipe2.penalites || 0) +
+            " · " + match.resultat;
+
+        bloc.appendChild(details);
+
+        const supprimer = document.createElement("button");
+
+        supprimer.className = "supprimer-match";
+        supprimer.textContent = "Supprimer ce match";
+
+        supprimer.addEventListener("click", () => {
+
+            historiqueMatchs.splice(index, 1);
+
+            sauvegarderHistorique();
+            afficherHistorique();
+
+        });
+
+        bloc.appendChild(supprimer);
+        zone.appendChild(bloc);
+
+    });
+
+}
+
+
+/* =====================================
+   17. EFFACER L'HISTORIQUE
+===================================== */
+
+document.getElementById("effacerHistorique")
+    .addEventListener("click", () => {
+
+        if (!confirm("Effacer tout l'historique des matchs ?")) {
+            return;
+        }
+
+        historiqueMatchs = [];
+
+        sauvegarderHistorique();
+        afficherHistorique();
+
+    });
+
+
+/* =====================================
+   18. NOUVEAU MATCH
+===================================== */
+
+document.getElementById("resetMatch").addEventListener("click", () => {
+
+    if (!matchTermine) return;
+
+    secondes = 0;
+    afficherTemps();
+
+    [1, 2].forEach(numero => {
+
+        equipes[numero].score = 0;
+        equipes[numero].penalites = 0;
+        equipes[numero].actions = [];
+
+        afficherScore(numero);
+
+    });
+
+    matchTermine = false;
+
+    document.getElementById("messageMatch").textContent = "";
+
+    document.getElementById("finMatch").disabled = false;
+    document.getElementById("resetMatch").disabled = true;
+
+});
+
+
+/* =====================================
+   19. INITIALISATION
+===================================== */
+
+[1, 2].forEach(numero => {
+
+    actualiserIdentite(numero);
+    afficherScore(numero);
+
+});
+
+afficherTemps();
+actualiserBoutonsScore();
+afficherHistorique();
