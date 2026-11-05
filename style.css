@@ -426,33 +426,214 @@ header p {
 
 
 /* =================================
-   RESPONSIVE
+   RESPONSIVE - TABLETTES ET MOBILES
 ================================= */
 
 @media (max-width: 650px) {
 
     body {
-        padding: 20px 12px;
+        padding: 14px 10px;
     }
 
-    .equipes {
-        grid-template-columns: 1fr;
+    .application {
+        width: 100%;
     }
 
-    .equipe {
-        min-height: 300px;
+    /* En-tête */
+
+    header {
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .logo {
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        font-size: 15px;
+    }
+
+    header h1 {
+        font-size: 21px;
+    }
+
+    header p {
+        font-size: 12px;
+    }
+
+    /* Chronomètre */
+
+    .chronometre {
+        padding: 18px 12px;
+        border-radius: 18px;
+        margin-bottom: 14px;
     }
 
     #temps {
         font-size: 42px;
+        letter-spacing: 2px;
+        margin: 8px 0 14px;
     }
 
-    .champs-points {
-        grid-template-columns: 1fr;
+    .chrono-commandes {
+        gap: 8px;
     }
 
     .chrono-commandes button {
-        padding: 10px 12px;
+        padding: 12px 10px;
+        font-size: 13px;
+        border-radius: 9px;
+    }
+
+    /* Configuration */
+
+    .configuration {
+        padding: 17px 16px;
+        border-radius: 17px;
+        margin-bottom: 14px;
+    }
+
+    .configuration-entete {
+        margin-bottom: 13px;
+    }
+
+    .configuration h2 {
+        font-size: 18px;
+    }
+
+    .modes {
+        gap: 8px;
+    }
+
+    .mode-btn {
+        padding: 13px 6px;
+        font-size: 13px;
+    }
+
+    .champs-points {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 7px;
+    }
+
+    .champs-points input {
+        padding: 11px 5px;
+        font-size: 14px;
+    }
+
+    /* Cartes des équipes */
+
+    .equipes {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .equipe {
+        min-height: unset;
+        padding: 19px 17px;
+        border-radius: 18px;
+    }
+
+    .equipe h2 {
+        font-size: 20px;
+        margin-top: 5px;
+    }
+
+    .entete-equipe {
+        gap: 10px;
+    }
+
+    /* Maillots */
+
+    .maillot {
+        width: 65px;
+        height: 65px;
+        border-radius: 12px;
+    }
+
+    .silhouette-maillot {
+        width: 43px;
+        height: 43px;
+    }
+
+    .petit-plus {
+        width: 21px;
+        height: 21px;
+        font-size: 14px;
+    }
+
+    .palette {
+        top: 73px;
+        padding: 10px;
+        gap: 8px;
+    }
+
+    /* Scores */
+
+    .score {
+        font-size: 64px;
+        margin: 9px 0 15px;
+    }
+
+    /* Boutons de points */
+
+    .boutons-score {
+        gap: 8px;
+    }
+
+    .point {
+        min-height: 54px;
+        padding: 12px 3px;
+        font-size: 17px;
+        border-radius: 10px;
+    }
+
+    /* Annulation */
+
+    .annuler-equipe {
+        margin-top: 11px;
+        min-height: 46px;
+        padding: 10px 6px;
+        font-size: 12px;
+    }
+
+    /* Signature */
+
+    .signature {
+        margin-top: 22px;
+        margin-bottom: 8px;
+    }
+}
+
+
+/* =================================
+   PETITS ECRANS
+================================= */
+
+@media (max-width: 380px) {
+
+    body {
+        padding: 10px 8px;
+    }
+
+    .chronometre {
+        padding: 16px 9px;
+    }
+
+    .chrono-commandes {
+        gap: 6px;
+    }
+
+    .chrono-commandes button {
+        padding: 11px 7px;
+        font-size: 12px;
+    }
+
+    .equipe {
+        padding: 16px 13px;
+    }
+
+    .point {
+        font-size: 15px;
     }
 
 }
