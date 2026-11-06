@@ -1,712 +1,164 @@
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 16px;
-    background: #f0f3f7;
-    color: #202d40;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-button {
-    border: none;
-    border-radius: 8px;
-    font-family: inherit;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.15s;
-}
-
-button:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-}
-
-[hidden] {
-    display: none !important;
-}
-
-.application {
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-}
-
-/* EN-TETE */
-
-.entete {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin-bottom: 8px;
-}
-
-.logo {
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
-    background: #203d58;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.entete h1 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 800;
-}
-
-.entete p {
-    margin: 2px 0 0;
-    color: #8091a6;
-    font-size: 10px;
-}
-
-/* CHRONOMETRE */
-
-.chronometre {
-    background: #203d58;
-    color: white;
-    border-radius: 15px;
-    padding: 10px;
-    text-align: center;
-    margin-bottom: 9px;
-    box-shadow: 0 5px 12px #203d5818;
-}
-
-.chrono-label {
-    color: #9fb3c8;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-#temps {
-    font-size: 34px;
-    font-weight: 800;
-    letter-spacing: 3px;
-    margin: 3px 0 6px;
-    font-variant-numeric: tabular-nums;
-}
-
-.commandes-chrono {
-    display: flex;
-    justify-content: center;
-    gap: 7px;
-}
-
-.commandes-chrono button {
-    padding: 8px 14px;
-    color: white;
-    font-size: 11px;
-}
-
-.btn-demarrer {
-    background: #39b980;
-}
-
-.btn-pause {
-    background: #405b75;
-}
-
-/* CONFIGURATION */
-
-.configuration {
-    background: white;
-    border-radius: 12px;
-    padding: 10px 14px;
-    margin-bottom: 9px;
-    box-shadow: 0 3px 10px #203d580b;
-}
-
-.petit-titre {
-    color: #8ca2ba;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    font-weight: 800;
-}
-
-.configuration h2,
-.historique h2 {
-    margin: 4px 0 7px;
-    font-size: 14px;
-}
-
-.choix-mode {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-}
-
-.choix-mode button {
-    padding: 7px;
-    font-size: 11px;
-    color: #52677f;
-    background: #f5f7fa;
-    border: 1px solid #dce3eb;
-}
-
-.choix-mode button.mode-actif {
-    color: white;
-    background: #203d58;
-    border-color: #203d58;
-}
-
-.configuration-personnalisee {
-    padding-top: 10px;
-}
-
-.configuration-personnalisee h3 {
-    font-size: 13px;
-    margin: 0 0 8px;
-}
-
-/* CHAMPS DU BAREME : S'ADAPTENT AU NOMBRE DE VALEURS */
-
-.champs-bareme {
-    display: flex;
-    gap: 7px;
-    width: 100%;
-}
-
-.champs-bareme input {
-    flex: 1 1 0;
-    min-width: 0;
-    width: 100%;
-    border: 1px solid #dce3eb;
-    border-radius: 7px;
-    padding: 9px;
-    font-size: 14px;
-    background: #f8fafc;
-    color: #203d58;
-    text-align: center;
-    outline: none;
-}
-
-.champs-bareme input:focus {
-    border-color: #203d58;
-    box-shadow: 0 0 0 2px #203d5815;
-}
-
-/* OPTION PENALITES */
-
-.option-penalite {
-    margin: 10px 0;
-    padding: 10px;
-    background: #f5f7fa;
-    border: 1px solid #e5eaf0;
-    border-radius: 8px;
-    font-size: 12px;
-}
-
-.case-option {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-weight: 700;
-}
-
-.case-option input {
-    accent-color: #203d58;
-    width: 15px;
-    height: 15px;
-    margin: 0;
-}
-
-.reglage-penalite {
-    margin-top: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.reglage-penalite label {
-    color: #52677f;
-    font-size: 11px;
-    font-weight: 600;
-}
-
-.reglage-penalite input {
-    width: 85px;
-    min-width: 85px;
-    padding: 8px 10px;
-    border: 1px solid #dce3eb;
-    border-radius: 7px;
-    background: white;
-    color: #203d58;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    text-align: center;
-    outline: none;
-}
-
-.reglage-penalite input:focus {
-    border-color: #203d58;
-    box-shadow: 0 0 0 2px #203d5815;
-}
-
-.btn-valider {
-    width: 100%;
-    padding: 9px;
-    color: white;
-    background: #39b980;
-    font-size: 12px;
-}
-
-#messageBareme {
-    color: #17854c;
-    font-size: 11px;
-    margin: 6px 0 0;
-}
-
-.resume-bareme {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    color: #64778c;
-    font-size: 11px;
-    padding-top: 7px;
-}
-
-.resume-bareme button {
-    background: #f0f3f7;
-    color: #405b75;
-    padding: 6px 10px;
-    font-size: 10px;
-    white-space: nowrap;
-}
-
-/* EQUIPES */
-
-.equipes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.equipe {
-    min-width: 0;
-    background: white;
-    border-radius: 14px;
-    padding: 13px;
-    box-shadow: 0 3px 10px #203d580b;
-}
-
-.entete-equipe {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-
-.equipe h2 {
-    font-size: 16px;
-    margin: 3px 0 0;
-}
-
-/* MAILLOT CLIQUABLE */
-
-.selecteur-maillot {
-    position: relative;
-    z-index: 5;
-}
-
-.bouton-maillot {
-    position: relative;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: #f1f3f6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px;
-}
-
-.bouton-maillot svg {
-    width: 36px;
-    height: 36px;
-    overflow: visible;
-}
-
-.forme-maillot {
-    fill: var(--couleur-maillot, #ed3733);
-    stroke: #ffffff;
-    stroke-width: 1.2;
-    stroke-linejoin: round;
-}
-
-.plus-maillot {
-    position: absolute;
-    right: -4px;
-    bottom: -4px;
-    width: 18px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: white;
-    background: #203d58;
-    font-size: 15px;
-    line-height: 1;
-}
-
-.palette-flottante {
-    position: absolute;
-    top: 53px;
-    right: 0;
-    width: 142px;
-    padding: 9px;
-    background: white;
-    border: 1px solid #dce3eb;
-    border-radius: 10px;
-    box-shadow: 0 5px 18px #203d5830;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 9px;
-    z-index: 20;
-}
-
-.couleur {
-    width: 23px;
-    height: 23px;
-    border-radius: 50%;
-    border: 2px solid #d7dfe8;
-    padding: 0;
-}
-
-.couleur.rouge { background: #ed3733; }
-.couleur.vert-fonce { background: #167447; }
-.couleur.bleu { background: #2676d4; }
-.couleur.jaune { background: #f2d329; }
-.couleur.orange { background: #ed9029; }
-.couleur.noir { background: #222222; }
-.couleur.blanc { background: #ffffff; }
-.couleur.vert-clair { background: #8bc34a; }
-
-.couleur.selectionne {
-    outline: 2px solid #203d58;
-    outline-offset: 2px;
-}
-
-/* IDENTITE */
-
-.choix-identite {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px;
-    margin-bottom: 7px;
-}
-
-.type-identite {
-    padding: 6px 4px;
-    background: #f5f7fa;
-    color: #52677f;
-    border: 1px solid #dce3eb;
-    font-size: 10px;
-}
-
-.type-identite.actif {
-    background: #203d58;
-    color: white;
-    border-color: #203d58;
-}
-
-.nom-personnalise {
-    width: 100%;
-    padding: 7px;
-    border: 1px solid #dce3eb;
-    border-radius: 7px;
-    font-size: 12px;
-    margin: 3px 0;
-    text-align: center;
-}
-
-/* SCORES */
-
-.score {
-    font-size: 52px;
-    font-weight: 800;
-    line-height: 1.15;
-    text-align: center;
-    color: #203d58;
-    margin: 8px 0 10px;
-    font-variant-numeric: tabular-nums;
-}
-
-.boutons-score {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 7px;
-}
-
-.point {
-    min-width: 0;
-    padding: 11px 4px;
-    font-size: 14px;
-}
-
-.point:nth-child(3n+1) {
-    color: #13824a;
-    background: #dff5e9;
-}
-
-.point:nth-child(3n+2) {
-    color: #2168cf;
-    background: #e1edff;
-}
-
-.point:nth-child(3n) {
-    color: #d87500;
-    background: #fff0dc;
-}
-
-/* PENALITES */
-
-.zone-penalite {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    margin-top: 8px;
-}
-
-.btn-penalite {
-    min-width: 0;
-    background: #fff0f0;
-    color: #c73535;
-    border: 1px solid #f5c6c6;
-    padding: 8px 12px;
-    font-size: 11px;
-    border-radius: 7px;
-}
-
-.btn-penalite:active {
-    background: #fbdada;
-}
-
-.compteur-penalites {
-    min-width: 48px;
-    padding: 4px 7px;
-    border-radius: 7px;
-    background: #fff5f5;
-    color: #c73535;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1.1;
-}
-
-.compteur-penalites strong {
-    font-size: 14px;
-}
-
-.compteur-penalites small {
-    font-size: 8px;
-}
-
-.btn-annuler {
-    width: 100%;
-    margin-top: 7px;
-    padding: 8px 4px;
-    background: #f5f7fa;
-    color: #536981;
-    border: 1px solid #dce3eb;
-    font-size: 10px;
-}
-
-/* FIN DE MATCH */
-
-.actions-match {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    margin-top: 10px;
-}
-
-.actions-match button {
-    width: 100%;
-    padding: 11px;
-    font-size: 12px;
-}
-
-.btn-fin-match {
-    background: #efa634;
-    color: #203d58;
-}
-
-.btn-nouveau-match {
-    background: #203d58;
-    color: white;
-}
-
-#messageMatch {
-    text-align: center;
-    font-size: 12px;
-    font-weight: 700;
-    margin: 2px;
-}
-
-/* HISTORIQUE */
-
-.historique {
-    background: white;
-    border-radius: 13px;
-    padding: 12px 14px;
-    margin-top: 16px;
-    box-shadow: 0 3px 10px #203d580b;
-}
-
-.historique h2 {
-    margin: 4px 0 7px;
-}
-
-.match-historique {
-    border-top: 1px solid #e9edf2;
-    padding: 9px 0;
-    font-size: 12px;
-}
-
-.ligne-resultat {
-    font-weight: 800;
-    color: #203d58;
-}
-
-.details-match {
-    color: #8291a3;
-    font-size: 10px;
-    margin-top: 4px;
-}
-
-.supprimer-match {
-    margin-top: 6px;
-    background: #f5f7fa;
-    color: #687c92;
-    padding: 5px 8px;
-    font-size: 10px;
-}
-
-.btn-effacer-historique {
-    width: 100%;
-    margin-top: 7px;
-    padding: 8px;
-    border: 1px solid #ed4949;
-    background: white;
-    color: #e33d3d;
-    font-size: 11px;
-}
-
-footer {
-    text-align: center;
-    margin: 10px 0 4px;
-    color: #a0adbd;
-    letter-spacing: 1.5px;
-    font-size: 9px;
-    font-weight: 700;
-}
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-    body {
-        padding: 7px;
-    }
-
-    .entete {
-        margin-bottom: 6px;
-    }
-
-    .entete h1 {
-        font-size: 16px;
-    }
-
-    .chronometre {
-        padding: 8px;
-        margin-bottom: 7px;
-    }
-
-    #temps {
-        font-size: 31px;
-        margin: 2px 0 5px;
-    }
-
-    .configuration {
-        padding: 8px 10px;
-        margin-bottom: 7px;
-    }
-
-    .equipes {
-        gap: 7px;
-    }
-
-    .equipe {
-        padding: 9px 7px;
-        border-radius: 11px;
-    }
-
-    .equipe h2 {
-        font-size: 14px;
-    }
-
-    .bouton-maillot {
-        width: 40px;
-        height: 40px;
-    }
-
-    .bouton-maillot svg {
-        width: 31px;
-        height: 31px;
-    }
-
-    .score {
-        font-size: 43px;
-        margin: 7px 0;
-    }
-
-    .boutons-score {
-        gap: 4px;
-    }
-
-    .point {
-        padding: 9px 2px;
-        font-size: 12px;
-    }
-
-    .type-identite {
-        font-size: 9px;
-        padding: 6px 2px;
-    }
-
-    .btn-annuler {
-        font-size: 9px;
-        padding: 7px 2px;
-    }
-
-    .btn-penalite {
-        padding: 7px 8px;
-        font-size: 10px;
-    }
-
-    .reglage-penalite {
-        gap: 8px;
-    }
-
-    .reglage-penalite label {
-        font-size: 10px;
-    }
-
-    .historique {
-        margin-top: 10px;
-    }
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{font-family:Arial,sans-serif;background:#f1f3f6;color:#202b3c;min-height:100vh;padding:24px 18px}
+.application{max-width:1050px;margin:0 auto}
+header{display:flex;align-items:center;gap:15px;margin-bottom:17px}
+.logo{width:52px;height:52px;border-radius:14px;background:#203d58;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px}
+header h1{font-size:26px;margin:4px 0}
+header p{color:#8290a0;font-size:14px}
+.sur-titre{font-size:10px;font-weight:bold;letter-spacing:2px;color:#8da1b5}
+
+.configuration{background:#fff;padding:17px 22px;border-radius:18px;margin-bottom:14px;box-shadow:0 5px 20px #203d580c}
+.configuration-entete{margin-bottom:11px}
+.configuration h2{font-size:19px;margin-top:5px}
+.aide{font-size:14px;color:#536579;margin-bottom:10px}
+.champs-bareme{display:flex;gap:8px}
+.champ-bareme{display:flex;flex:1 1 0;min-width:0;gap:5px}
+.champ-bareme input{min-width:0;width:100%;flex:1;padding:10px;border:1px solid #dce1e8;border-radius:9px;font-size:15px;text-align:center;background:#fff}
+.choix-couleur{width:83px;min-width:0;padding:8px 4px;border:1px solid #dce1e8;border-radius:9px;background:#f7f8fa;color:#536579;font-size:12px;font-weight:bold;cursor:pointer}
+.option-penalite{margin-top:11px;padding:10px;background:#f7f8fa;border:1px solid #e5e9ee;border-radius:10px}
+.ligne-checkbox{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:bold}
+.ligne-checkbox input{accent-color:#203d58;width:16px;height:16px}
+.reglage-penalite{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:13px;color:#536579}
+.reglage-penalite input{width:85px;padding:10px;border:1px solid #dce1e8;border-radius:9px;font-size:15px;text-align:center;background:#fff}
+.btn-valider{margin-top:11px;padding:11px 18px;background:#45b879;color:#fff;border:0;border-radius:9px;font-weight:bold;cursor:pointer}
+#messageBareme{font-size:13px;margin-top:7px;color:#b54747}
+.resume{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;background:#f5f7f9;border-radius:9px;font-size:13px;color:#536579}
+.btn-modifier{border:0;background:transparent;color:#2869c5;font-weight:bold;cursor:pointer;font-size:12px;white-space:nowrap}
+
+.chronometre{background:#203d58;color:#fff;border-radius:20px;padding:17px 22px;text-align:center;margin-bottom:13px;box-shadow:0 8px 25px #203d581c}
+#temps{font-size:50px;font-weight:bold;letter-spacing:3px;margin:7px 0 13px;font-variant-numeric:tabular-nums}
+.chrono-commandes{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:9px}
+.chrono-commandes button{border:0;border-radius:9px;padding:10px 16px;cursor:pointer;font-weight:bold}
+.btn-demarrer{background:#45b879;color:white}
+.btn-secondaire{background:#ffffff20;color:white}
+.btn-nouveau-match{background:#e9a23b;color:#263344}
+.chrono-commandes button:disabled{opacity:.4;cursor:not-allowed}
+.message-match{font-size:13px;margin-top:8px}
+
+.equipes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.equipe{position:relative;background:#fff;border-radius:20px;padding:17px 21px;min-height:unset;box-shadow:0 5px 20px #203d580c}
+.entete-equipe{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.equipe h2{font-size:20px;margin-top:5px}
+
+.nom-equipe-zone{display:flex;align-items:center;gap:6px;margin-top:4px}
+.nom-equipe-modifiable{cursor:pointer;background:#f1f3f6;border-radius:7px;padding:5px 9px;border:1px solid #e5e9ee;transition:background .15s,color .15s}
+.nom-equipe-modifiable:hover{background:#e5edf5;color:#2869c5}
+.icone-modifier-nom{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;border-radius:50%;background:#e8edf3;color:#536579;font-size:13px}
+.indice-modifier-nom{font-size:9px;color:#8290a0;margin:3px 0 0 3px}
+
+.choix-maillot{position:relative}
+.maillot{width:66px;height:66px;background:#f1f3f6;border:0;border-radius:14px;cursor:pointer;display:flex;justify-content:center;align-items:center}
+.silhouette-maillot{width:46px;height:46px;background:var(--couleur-maillot,#E53935);clip-path:polygon(25% 0,0 20%,15% 45%,25% 38%,25% 100%,75% 100%,75% 38%,85% 45%,100% 20%,75% 0,65% 12%,35% 12%)}
+.petit-plus{position:absolute;bottom:-4px;right:-4px;background:#203d58;color:#fff;border-radius:50%;width:21px;height:21px;font-size:14px;display:grid;place-items:center}
+.palette{display:none;position:absolute;z-index:5;right:0;top:72px;background:#fff;padding:11px;border-radius:12px;box-shadow:0 5px 25px #0002;grid-template-columns:repeat(4,28px);gap:8px}
+.palette.active{display:grid}
+.palette button{width:27px;height:27px;border:2px solid #e2e6eb;border-radius:50%;cursor:pointer}
+
+.score{text-align:center;font-size:54px;font-weight:bold;margin:5px 0 7px;color:#203d58;font-variant-numeric:tabular-nums;line-height:1.05}
+.boutons-score{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.bloc-point{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+.point{width:100%;min-height:46px;padding:9px 4px;border:0;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer;transition:transform .15s,opacity .15s}
+.point:hover{transform:translateY(-2px);opacity:.88}
+.point-couleur-vert{background:#dff5e8;color:#20834b}
+.point-couleur-bleu{background:#e1edff;color:#2869c5}
+.point-couleur-orange{background:#fff0dc;color:#d97706}
+.point-couleur-violet{background:#eee5ff;color:#7542b8}
+.pastille-compteur{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:bold;line-height:1}
+.pastille-compteur.point-couleur-vert{background:#dff5e8;color:#20834b}
+.pastille-compteur.point-couleur-bleu{background:#e1edff;color:#2869c5}
+.pastille-compteur.point-couleur-orange{background:#fff0dc;color:#d97706}
+.pastille-compteur.point-couleur-violet{background:#eee5ff;color:#7542b8}
+
+.zone-penalite{display:flex;align-items:center;gap:8px;margin-top:9px}
+.penalite{border:0;border-radius:8px;background:#fde8e7;color:#c0392b;padding:9px 13px;font-size:12px;font-weight:bold;cursor:pointer}
+.compteur-penalites{font-size:12px;color:#c0392b;font-weight:bold}
+.annuler-equipe{width:100%;margin-top:10px;padding:9px;border:1px solid #dce1e8;border-radius:9px;background:#f7f8fa;color:#536579;font-size:12px;font-weight:bold;cursor:pointer}
+.annuler-equipe:hover{background:#e8edf3}
+
+.fin-match-conteneur{display:flex;justify-content:center;margin:14px 0 0}
+.btn-fin-match{width:100%;max-width:360px;padding:13px 20px;border:0;border-radius:10px;background:#203d58;color:#fff;font-size:14px;font-weight:bold;cursor:pointer}
+.btn-fin-match:hover{background:#2d5275}
+.btn-fin-match:disabled{opacity:.4;cursor:not-allowed}
+
+.historique{margin-top:20px;padding:19px;background:#fff;border-radius:16px;box-shadow:0 5px 20px #203d580c}
+.historique-entete{margin-bottom:13px}
+.historique h2{margin-top:5px;font-size:20px}
+.historique-vide{text-align:center;color:#888;padding:18px 10px}
+.resultat-match{padding:16px;margin-bottom:12px;background:#f5f6f8;border-radius:14px}
+.resultat-match-entete{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:13px}
+.numero-match{font-size:14px;color:#203d58;font-weight:800}
+.date-match{font-size:12px;color:#8290a0}
+
+.resultat-score{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 12px}
+.resultat-equipe{display:grid;grid-template-columns:5px minmax(0,1fr);align-items:center;column-gap:9px;min-width:0;padding:11px 9px;background:#fff;border-radius:12px;text-align:center}
+.historique-barre-couleur{width:5px;height:100%;min-height:75px;border-radius:5px;grid-column:1;grid-row:1 / span 4}
+.historique-contenu-equipe{grid-column:2;grid-row:1 / span 4;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+.historique-nom-equipe{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:bold;color:#203d58;overflow-wrap:anywhere}
+.historique-couleur{display:none}
+.historique-score{font-size:31px;line-height:1;color:#203d58;font-weight:800;margin-top:1px}
+.titre-points{font-size:8px;font-weight:bold;letter-spacing:1px;color:#8da1b5;margin-top:2px}
+.historique-pastilles{display:flex;justify-content:center;flex-wrap:wrap;gap:5px;width:100%;margin-top:3px}
+.historique-pastille{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:48px;padding:7px 8px;border-radius:8px;text-align:center}
+.pastille-type{font-size:11px;font-weight:800}
+.pastille-nombre{font-size:10px;font-weight:600}
+.historique-pastille.pastille-vert{background:#dff5e8;color:#20834b}
+.historique-pastille.pastille-bleu{background:#e1edff;color:#2869c5}
+.historique-pastille.pastille-orange{background:#fff0dc;color:#d97706}
+.historique-pastille.pastille-violet{background:#eee5ff;color:#7542b8}
+.historique-pastille.pastille-penalite{background:#fde8e7;color:#c0392b}
+
+.resultat-detail{display:flex;justify-content:space-around;flex-wrap:wrap;gap:8px;padding:10px;margin-bottom:10px;background:#fff;border-radius:9px;font-size:12px;color:#536579}
+.resultat-match-pied{display:flex;justify-content:flex-end;padding-top:9px;border-top:1px solid #dce1e8}
+.btn-supprimer-match{border:0;background:#fde8e7;color:#c0392b;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:bold;cursor:pointer}
+.btn-effacer-historique{width:100%;margin-top:13px;padding:11px;border:1px solid #e53935;border-radius:10px;background:#fff;color:#e53935;font-weight:700;cursor:pointer}
+.signature{text-align:center;color:#a2acb8;font-size:10px;letter-spacing:2px;margin-top:19px}
+
+[hidden]{display:none!important}
+
+@media(max-width:650px){
+  body{padding:13px 10px}
+  .application{width:100%}
+  header{gap:10px;margin-bottom:13px}
+  .logo{width:42px;height:42px;font-size:15px}
+  header h1{font-size:21px}
+  header p{font-size:12px}
+  .configuration{padding:14px;border-radius:17px;margin-bottom:12px}
+  .configuration h2{font-size:18px}
+  .champs-bareme{gap:5px}
+  .champ-bareme{gap:3px}
+  .champ-bareme input{padding:9px 3px;font-size:13px}
+  .choix-couleur{width:70px;font-size:10px}
+  .chronometre{padding:15px 11px;border-radius:18px;margin-bottom:11px}
+  #temps{font-size:42px;letter-spacing:2px;margin:7px 0 12px}
+  .chrono-commandes{gap:7px}
+  .chrono-commandes button{padding:10px 9px;font-size:12px}
+  .equipes{gap:10px}
+  .equipe{padding:15px 13px;border-radius:17px;min-height:unset}
+  .equipe h2{font-size:18px}
+  .nom-equipe-modifiable{padding:4px 6px}
+  .indice-modifier-nom{font-size:8px}
+  .maillot{width:56px;height:56px}
+  .silhouette-maillot{width:39px;height:39px}
+  .palette{top:62px}
+  .score{font-size:47px;margin:5px 0 7px}
+  .point{min-height:43px;padding:8px 3px;font-size:16px}
+  .boutons-score{gap:6px}
+  .historique{padding:15px;margin-top:16px}
+  .resultat-equipe{padding:10px 6px;column-gap:6px}
+  .historique-score{font-size:27px}
+  .historique-pastille{min-width:42px;padding:6px 5px}
+  .pastille-type{font-size:10px}
+  .pastille-nombre{font-size:9px}
+  .historique-nom-equipe{font-size:11px}
+}
+
+@media(max-width:380px){
+  body{padding:10px 7px}
+  .equipe{padding:13px 10px}
+  .point{font-size:14px}
+  .chrono-commandes button{padding:9px 7px;font-size:11px}
+  .choix-couleur{width:62px;font-size:9px}
+  .historique-pastille{min-width:38px;padding:5px 4px}
+  .historique-nom-equipe{font-size:10px}
 }
