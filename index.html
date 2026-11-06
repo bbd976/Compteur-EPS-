@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Compteur de points EPS</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Installation de l'application -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#172b4d">
 </head>
 <body>
   <main class="application">
@@ -191,5 +196,16 @@
   </main>
 
   <script src="script.js"></script>
+
+  <!-- Activation du fonctionnement hors connexion -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+          .then(() => console.log("Compteur EPS : mode hors connexion activé."))
+          .catch((erreur) => console.error("Erreur service worker :", erreur));
+      });
+    }
+  </script>
 </body>
 </html>
