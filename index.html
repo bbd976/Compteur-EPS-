@@ -1,205 +1,195 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compteur de points EPS</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compteur de points EPS</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<main class="application">
-
-    <header class="entete">
-        <div class="logo">EPS</div>
-        <div>
-            <h1>Compteur de points</h1>
-            <p>Tableau de score • Match</p>
-        </div>
+  <main class="application">
+    <header>
+      <div class="logo">EPS</div>
+      <div>
+        <div class="sur-titre">OUTIL DE COMPTAGE</div>
+        <h1>Compteur de points</h1>
+        <p>Un outil simple pour suivre vos matchs.</p>
+      </div>
     </header>
 
-    <!-- CHRONOMETRE -->
+    <section class="configuration" id="blocConfiguration">
+      <div class="configuration-entete">
+        <div class="sur-titre">ÉTAPE 1</div>
+        <h2>Configuration du score</h2>
+      </div>
+
+      <div id="configurationContenu">
+        <p class="aide">Choisis les valeurs de points et leur couleur (1, 2 ou 3 boutons).</p>
+
+        <div class="champs-bareme">
+          <div class="champ-bareme">
+            <input id="pointCustom1" type="number" min="1" step="1" placeholder="Valeur 1">
+            <select id="couleurCustom1" class="choix-couleur" aria-label="Couleur de la première valeur">
+              <option value="vert">Vert</option>
+              <option value="bleu">Bleu</option>
+              <option value="orange">Orange</option>
+              <option value="violet">Violet</option>
+            </select>
+          </div>
+
+          <div class="champ-bareme">
+            <input id="pointCustom2" type="number" min="1" step="1" placeholder="Valeur 2">
+            <select id="couleurCustom2" class="choix-couleur" aria-label="Couleur de la deuxième valeur">
+              <option value="bleu" selected>Bleu</option>
+              <option value="vert">Vert</option>
+              <option value="orange">Orange</option>
+              <option value="violet">Violet</option>
+            </select>
+          </div>
+
+          <div class="champ-bareme">
+            <input id="pointCustom3" type="number" min="1" step="1" placeholder="Valeur 3">
+            <select id="couleurCustom3" class="choix-couleur" aria-label="Couleur de la troisième valeur">
+              <option value="orange" selected>Orange</option>
+              <option value="vert">Vert</option>
+              <option value="bleu">Bleu</option>
+              <option value="violet">Violet</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="option-penalite">
+          <label class="ligne-checkbox">
+            <input type="checkbox" id="activerPenalites">
+            Activer les pénalités
+          </label>
+          <div id="reglagePenalite" class="reglage-penalite" hidden>
+            <label for="pointsPenalite">Points retirés par pénalité</label>
+            <input id="pointsPenalite" type="number" min="0" step="1" value="1">
+          </div>
+        </div>
+
+        <button id="validerBareme" class="btn-valider">Valider la configuration</button>
+        <p id="messageBareme" aria-live="polite"></p>
+      </div>
+
+      <div id="resumeBareme" class="resume" hidden>
+        <span id="texteResumeBareme"></span>
+        <button id="modifierBareme" class="btn-modifier">Modifier</button>
+      </div>
+    </section>
+
     <section class="chronometre">
-        <div class="chrono-label">TEMPS DE MATCH</div>
-        <div id="temps">00:00</div>
-        <div class="commandes-chrono">
-            <button id="demarrer" class="btn-demarrer">▶ Démarrer</button>
-            <button id="pause" class="btn-pause">Ⅱ Pause</button>
-        </div>
+      <div class="sur-titre">TEMPS DE MATCH</div>
+      <div id="temps">00:00</div>
+      <div class="chrono-commandes">
+        <button id="demarrer" class="btn-demarrer">▶ Démarrer</button>
+        <button id="pause" class="btn-secondaire">Ⅱ Pause</button>
+        <button id="resetMatch" class="btn-nouveau-match" disabled>↻ Nouveau match</button>
+      </div>
+      <p id="messageMatch" class="message-match" aria-live="polite"></p>
     </section>
 
-    <!-- PARAMETRES -->
-    <section class="configuration">
-        <div class="petit-titre">PARAMÈTRES DU MATCH</div>
-        <h2>Barème des points</h2>
-
-        <div class="choix-mode">
-            <button id="modeClassique" class="mode-actif">1 / 10 / 100</button>
-            <button id="modePersonnalise">Personnalisé</button>
-        </div>
-
-        <div id="configurationPersonnalisee" class="configuration-personnalisee" hidden>
-            <h3>Barème personnalisé</h3>
-
-            <div class="champs-bareme">
-                <input type="number" id="pointCustom1" min="0" placeholder="Valeur 1">
-                <input type="number" id="pointCustom2" min="0" placeholder="Valeur 2">
-                <input type="number" id="pointCustom3" min="0" placeholder="Valeur 3">
-            </div>
-
-            <div class="option-penalite">
-                <label class="case-option">
-                    <input type="checkbox" id="activerPenalites">
-                    <span>Activer les pénalités</span>
-                </label>
-
-                <div id="reglagePenalite" class="reglage-penalite" hidden>
-                    <label for="pointsPenalite">Points retirés par pénalité :</label>
-                    <input type="number" id="pointsPenalite" min="0" value="0">
-                </div>
-            </div>
-
-            <button id="validerBareme" class="btn-valider">Appliquer le barème</button>
-            <p id="messageBareme"></p>
-        </div>
-
-        <div id="resumeBareme" class="resume-bareme" hidden>
-            <span id="texteResumeBareme"></span>
-            <button id="modifierBareme">Modifier</button>
-        </div>
-    </section>
-
-    <!-- EQUIPES -->
     <section class="equipes">
-
-        <!-- EQUIPE 1 -->
-        <article class="equipe">
-            <div class="entete-equipe">
-                <div>
-                    <div class="petit-titre">ÉQUIPE 01</div>
-                    <h2 id="nomEquipe1">Équipe 1</h2>
-                </div>
-
-                <div class="selecteur-maillot">
-                    <button class="bouton-maillot" id="ouvrirPalette1"
-                            aria-label="Changer la couleur du maillot de l'équipe 1"
-                            aria-expanded="false">
-                        <svg viewBox="0 0 48 48" aria-hidden="true">
-                            <path class="forme-maillot" d="M15 5 L5 11 L1 23 L10 27 L14 20 L14 44 L34 44 L34 20 L38 27 L47 23 L43 11 L33 5 C31 9 28 11 24 11 C20 11 17 9 15 5 Z"/>
-                        </svg>
-                        <span class="plus-maillot">+</span>
-                    </button>
-
-                    <div class="palette-flottante" id="palette1" hidden>
-                        <button class="couleur rouge" data-team="1" data-color="rouge" aria-label="Rouge"></button>
-                        <button class="couleur vert-fonce" data-team="1" data-color="vert-fonce" aria-label="Vert foncé"></button>
-                        <button class="couleur bleu" data-team="1" data-color="bleu" aria-label="Bleu"></button>
-                        <button class="couleur jaune" data-team="1" data-color="jaune" aria-label="Jaune"></button>
-                        <button class="couleur orange" data-team="1" data-color="orange" aria-label="Orange"></button>
-                        <button class="couleur noir" data-team="1" data-color="noir" aria-label="Noir"></button>
-                        <button class="couleur blanc" data-team="1" data-color="blanc" aria-label="Blanc"></button>
-                        <button class="couleur vert-clair" data-team="1" data-color="vert-clair" aria-label="Vert clair"></button>
-                    </div>
-                </div>
+      <article class="equipe" data-team="1">
+        <div class="entete-equipe">
+          <div>
+            <div class="sur-titre">ÉQUIPE A</div>
+            <div class="nom-equipe-zone">
+              <h2 id="nomEquipe1" class="nom-equipe-modifiable" title="Cliquer pour modifier le nom">Équipe A</h2>
+              <span class="icone-modifier-nom">✎</span>
             </div>
-
-            <div class="choix-identite">
-                <button class="type-identite actif" data-team="1" data-type="maillot">Maillot</button>
-                <button class="type-identite" data-team="1" data-type="texte">Texte</button>
+            <div class="indice-modifier-nom">Cliquer pour modifier</div>
+          </div>
+          <div class="choix-maillot">
+            <button class="maillot" id="ouvrirPalette1" aria-label="Choisir le maillot de l'équipe A">
+              <span class="silhouette-maillot" id="maillot1"></span>
+              <span class="petit-plus">+</span>
+            </button>
+            <div class="palette" id="palette1">
+              <button type="button" data-team="1" data-color="#E53935" style="background:#E53935" aria-label="Rouge"></button>
+              <button type="button" data-team="1" data-color="#20834b" style="background:#20834b" aria-label="Vert foncé"></button>
+              <button type="button" data-team="1" data-color="#2869c5" style="background:#2869c5" aria-label="Bleu"></button>
+              <button type="button" data-team="1" data-color="#f4c542" style="background:#f4c542" aria-label="Jaune"></button>
+              <button type="button" data-team="1" data-color="#e88724" style="background:#e88724" aria-label="Orange"></button>
+              <button type="button" data-team="1" data-color="#222222" style="background:#222222" aria-label="Noir"></button>
+              <button type="button" data-team="1" data-color="#ffffff" style="background:#ffffff" aria-label="Blanc"></button>
+              <button type="button" data-team="1" data-color="#76c893" style="background:#76c893" aria-label="Vert clair"></button>
             </div>
+          </div>
+        </div>
 
-            <input type="text" id="texteEquipe1" class="nom-personnalise"
-                   placeholder="Nom de l'équipe ou du joueur" maxlength="30" hidden>
+        <div class="score" id="score1">0</div>
+        <div class="boutons-score" id="boutonsScore1"></div>
 
-            <div class="score" id="score1">0</div>
-            <div class="boutons-score" id="boutonsScore1"></div>
+        <div class="zone-penalite" id="zonePenalite1" hidden>
+          <button class="penalite" id="penalite1">− Pénalité</button>
+          <span class="compteur-penalites" id="compteurPenalites1">0</span>
+        </div>
 
-            <div class="zone-penalite" id="zonePenalite1" hidden>
-                <button id="penalite1" class="btn-penalite">− Pénalité</button>
-                <span class="compteur-penalites">
-                    <strong id="compteurPenalites1">0</strong>
-                    <small>pénalité(s)</small>
-                </span>
+        <button class="annuler-equipe" id="annuler1">↶ Annuler la dernière action</button>
+      </article>
+
+      <article class="equipe" data-team="2">
+        <div class="entete-equipe">
+          <div>
+            <div class="sur-titre">ÉQUIPE B</div>
+            <div class="nom-equipe-zone">
+              <h2 id="nomEquipe2" class="nom-equipe-modifiable" title="Cliquer pour modifier le nom">Équipe B</h2>
+              <span class="icone-modifier-nom">✎</span>
             </div>
-
-            <button id="annuler1" class="btn-annuler">↶ Annuler la dernière action</button>
-        </article>
-
-        <!-- EQUIPE 2 -->
-        <article class="equipe">
-            <div class="entete-equipe">
-                <div>
-                    <div class="petit-titre">ÉQUIPE 02</div>
-                    <h2 id="nomEquipe2">Équipe 2</h2>
-                </div>
-
-                <div class="selecteur-maillot">
-                    <button class="bouton-maillot" id="ouvrirPalette2"
-                            aria-label="Changer la couleur du maillot de l'équipe 2"
-                            aria-expanded="false">
-                        <svg viewBox="0 0 48 48" aria-hidden="true">
-                            <path class="forme-maillot" d="M15 5 L5 11 L1 23 L10 27 L14 20 L14 44 L34 44 L34 20 L38 27 L47 23 L43 11 L33 5 C31 9 28 11 24 11 C20 11 17 9 15 5 Z"/>
-                        </svg>
-                        <span class="plus-maillot">+</span>
-                    </button>
-
-                    <div class="palette-flottante" id="palette2" hidden>
-                        <button class="couleur rouge" data-team="2" data-color="rouge" aria-label="Rouge"></button>
-                        <button class="couleur vert-fonce" data-team="2" data-color="vert-fonce" aria-label="Vert foncé"></button>
-                        <button class="couleur bleu" data-team="2" data-color="bleu" aria-label="Bleu"></button>
-                        <button class="couleur jaune" data-team="2" data-color="jaune" aria-label="Jaune"></button>
-                        <button class="couleur orange" data-team="2" data-color="orange" aria-label="Orange"></button>
-                        <button class="couleur noir" data-team="2" data-color="noir" aria-label="Noir"></button>
-                        <button class="couleur blanc" data-team="2" data-color="blanc" aria-label="Blanc"></button>
-                        <button class="couleur vert-clair" data-team="2" data-color="vert-clair" aria-label="Vert clair"></button>
-                    </div>
-                </div>
+            <div class="indice-modifier-nom">Cliquer pour modifier</div>
+          </div>
+          <div class="choix-maillot">
+            <button class="maillot" id="ouvrirPalette2" aria-label="Choisir le maillot de l'équipe B">
+              <span class="silhouette-maillot" id="maillot2"></span>
+              <span class="petit-plus">+</span>
+            </button>
+            <div class="palette" id="palette2">
+              <button type="button" data-team="2" data-color="#E53935" style="background:#E53935" aria-label="Rouge"></button>
+              <button type="button" data-team="2" data-color="#20834b" style="background:#20834b" aria-label="Vert foncé"></button>
+              <button type="button" data-team="2" data-color="#2869c5" style="background:#2869c5" aria-label="Bleu"></button>
+              <button type="button" data-team="2" data-color="#f4c542" style="background:#f4c542" aria-label="Jaune"></button>
+              <button type="button" data-team="2" data-color="#e88724" style="background:#e88724" aria-label="Orange"></button>
+              <button type="button" data-team="2" data-color="#222222" style="background:#222222" aria-label="Noir"></button>
+              <button type="button" data-team="2" data-color="#ffffff" style="background:#ffffff" aria-label="Blanc"></button>
+              <button type="button" data-team="2" data-color="#76c893" style="background:#76c893" aria-label="Vert clair"></button>
             </div>
+          </div>
+        </div>
 
-            <div class="choix-identite">
-                <button class="type-identite actif" data-team="2" data-type="maillot">Maillot</button>
-                <button class="type-identite" data-team="2" data-type="texte">Texte</button>
-            </div>
+        <div class="score" id="score2">0</div>
+        <div class="boutons-score" id="boutonsScore2"></div>
 
-            <input type="text" id="texteEquipe2" class="nom-personnalise"
-                   placeholder="Nom de l'équipe ou du joueur" maxlength="30" hidden>
+        <div class="zone-penalite" id="zonePenalite2" hidden>
+          <button class="penalite" id="penalite2">− Pénalité</button>
+          <span class="compteur-penalites" id="compteurPenalites2">0</span>
+        </div>
 
-            <div class="score" id="score2">0</div>
-            <div class="boutons-score" id="boutonsScore2"></div>
-
-            <div class="zone-penalite" id="zonePenalite2" hidden>
-                <button id="penalite2" class="btn-penalite">− Pénalité</button>
-                <span class="compteur-penalites">
-                    <strong id="compteurPenalites2">0</strong>
-                    <small>pénalité(s)</small>
-                </span>
-            </div>
-
-            <button id="annuler2" class="btn-annuler">↶ Annuler la dernière action</button>
-        </article>
-
+        <button class="annuler-equipe" id="annuler2">↶ Annuler la dernière action</button>
+      </article>
     </section>
 
-    <!-- FIN DE MATCH -->
-    <section class="actions-match">
-        <button id="finMatch" class="btn-fin-match">⚑ FIN DU MATCH</button>
-        <button id="resetMatch" class="btn-nouveau-match" disabled>↻ NOUVEAU MATCH</button>
-        <p id="messageMatch"></p>
-    </section>
+    <div class="fin-match-conteneur">
+      <button id="finMatch" class="btn-fin-match">■ Terminer le match</button>
+    </div>
 
-    <!-- HISTORIQUE -->
     <section class="historique">
-        <div class="petit-titre">RÉSULTATS</div>
-        <h2>Historique des matchs</h2>
-        <div id="historiqueMatchs"></div>
-        <button id="effacerHistorique" class="btn-effacer-historique">▤ Effacer tout l'historique</button>
+      <div class="historique-entete">
+        <div>
+          <div class="sur-titre">RÉSULTATS</div>
+          <h2>Historique des matchs</h2>
+        </div>
+      </div>
+      <div id="historiqueMatchs">
+        <p class="historique-vide">Aucun match enregistré pour le moment.</p>
+      </div>
+      <button id="effacerHistorique" class="btn-effacer-historique">Effacer l'historique</button>
     </section>
 
-    <footer>MYOUTILSEPS · OUTILS POUR L'EPS</footer>
+    <div class="signature">COMPTEUR EPS</div>
+  </main>
 
-</main>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
